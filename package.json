@@ -1,0 +1,11 @@
+{
+  "name": "nata-server",
+  "version": "1.0.0",
+  "description": "A server with express and nodejs for NATA ! ",
+  "main": "index.js",
+  "author": "Hongjun Ge",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
