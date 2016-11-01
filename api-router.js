@@ -11,6 +11,7 @@ const deviceApi = require('./api/api-devices');
 
 //Api for device
 
-router.post('/devices',deviceApi.create);
+router.post('/devices/:id',deviceApi.create);
+router.get('/devices/online',deviceApi.online);
 
 module.exports = router;

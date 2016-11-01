@@ -10,14 +10,18 @@ var app = express();
 var logger = require('morgan');
 app.use(logger('dev'));
 
+/*中间件serve-favicon*/
+var favicon = require('serve-favicon');
+app.use(favicon('./favicon.ico'));
 
+var cors = require('cors');
+app.use(cors());
 
 /*路由*/
 var route = require('./route');
 var apiRoute = require('./api-router');
 app.use('/',apiRoute);
 app.use('/',route);
-
 
 /*静态资源*/
 

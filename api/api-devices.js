@@ -3,27 +3,41 @@
  */
 const DeviceModel = require('../models/model-device');
 
+const Device = require('nata-device');
+
 //创建一个device实例
 module.exports.create = (req,res,next)=>{
     const device = new DeviceModel();
 
-    device.id = '12345678';
-    device.name = '华为';
-    device.android_version = '4.5';
-    device.sdk_version = '4.5';
-    device.cpu_abi = '4.5';
-    device.manufacturer = '4.7';
+    const deviceId = req.params.id;
+    console.log(`create device with id ${deviceId}`);
 
-    device.save((err,data) =>{
-        if(err){
-            return next(err);
-        }
-        return res.status(200).json(data)
-    }).catch((err)=>{
-        next(err);
+    new Device(deviceId).getDeviceInfo().then((info)=>{
+        console.log('**********************');
+        console.log(device.id = info.id);
+        console.log(device.name = info.name);
+        console.log(device.android_version = info.version);
+        console.log(device.sdk_version = info.sdk);
+        console.log(device.resolution = info.resolution);
+        console.log(device.manufacturer = info.manufacturer);
+        console.log('**********************');
     })
+    // device.save((err,data) =>{
+    //     if(err){
+    //         return next(err);
+    //     }
+    //     return res.status(200).json(data)
+    // }).catch((err)=>{
+    //     next(err);
+    // })
 }
 
-module.exports.show = (req,res) =>{
-    res.send('Hello')
+
+//Get online devices
+module.exports.online = (req,res,next) =>{
+    Device.getOnlineDevices().then((devices)=>{
+        res.status(200).json(devices);
+    }).catch((err)=>{
+        next(err)
+    })
 }

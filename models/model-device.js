@@ -18,6 +18,8 @@ const DeviceSchema = new mongoose.Schema({
     cpu_abi:String,
     manufacturer:String,
     create_at:{type:Date,default:Date.now}
-},{id:false})
+},{id:false});
+
+//id:false 禁止自动生成id
 
 module.exports = mongoose.model('Device',DeviceSchema);
