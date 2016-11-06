@@ -22,10 +22,9 @@ router.get('/book',(req,res)=>{
 });
 
 
-//Devices
+/*Devices：获取数据库设备列表*/
 router.get('/devices',DeviceController.show);
 
 //Projects
-router.get('/projects',)
 
 module.exports = router;

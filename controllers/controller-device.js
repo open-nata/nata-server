@@ -9,6 +9,6 @@ const DeviceModel = require('../models/model-device');
 module.exports.show = (req,res,next) =>{
     DeviceModel.find({},(err,devices)=>{
         if(err) return next(err);
-        return res.send(devices);
+        return res.json(devices);
     })
 }

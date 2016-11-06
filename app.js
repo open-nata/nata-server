@@ -4,6 +4,8 @@
 var express = require('express');
 var app = express();
 
+var path = require('path');
+
 /*中间件*/
 
 /*中间件morgan：在控制台显示req请求信息*/
@@ -17,13 +19,17 @@ app.use(favicon('./favicon.ico'));
 var cors = require('cors');
 app.use(cors());
 
+var cookieParse = require('cookie-parser');
+app.use(cookieParse());
+
 /*路由*/
 var route = require('./route');
 var apiRoute = require('./api-router');
-app.use('/',apiRoute);
+app.use('/api',apiRoute);
 app.use('/',route);
 
 /*静态资源*/
+app.use(express.static('public'));
 
 /*错误处理*/
 

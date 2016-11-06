@@ -33,7 +33,7 @@ module.exports.create = (req,res,next)=>{
 }
 
 
-//Get online devices
+//查看在线设备列表
 module.exports.online = (req,res,next) =>{
     Device.getOnlineDevices().then((devices)=>{
         res.status(200).json(devices);
