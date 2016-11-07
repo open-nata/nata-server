@@ -1,1 +1,1 @@
-node ./bin/www
+sudo nodemon ./bin/www
