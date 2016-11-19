@@ -19,6 +19,12 @@ app.use(logger('dev'));
 var favicon = require('serve-favicon');
 app.use(favicon('./favicon.ico'));
 
+/*中间件bodyParser*/
+// var bodyParser = require('body-parser');
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({
+//     extended: false
+// }));
 var bodyParser = require('body-parser');
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
@@ -26,62 +32,22 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 var cors = require('cors');
 app.use(cors());
 
-/*文件上传*/
-// app.use(function (req, res, next) {
-//     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
-//     res.setHeader('Access-Control-Allow-Methods', 'POST');
-//     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-//     res.setHeader('Access-Control-Allow-Credentials', true);
-//     next();
-// });
-
-
 var multer = require('multer');
-// var DIR = './public/upload/';
-// var options = {
-//     dest:DIR,
-//     rename:
-// }
-
-// var storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         cb(null, './public/upload/')
-//     },
-//     filename: function (req, file, cb) {
-//         cb(null, req.params.name);
-//     }
-// })
-//
-// var upload = multer({ storage: storage }).any();
-//var upload = multer({dest : DIR}).any();
-
-// var upload = multer({
-//     dest: DIR,
-//     rename: function (fieldname, filename) {
-//         return filename + Date.now();
-//     },
-//     onFileUploadStart: function (file) {
-//         console.log(file.originalname + ' is starting ...');
-//     },
-//     onFileUploadComplete: function (file) {
-//         console.log(file.fieldname + ' uploaded to  ' + file.path);
-//     }
-// }).any();
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './public/upload/')
+        cb(null, './public/images/')
     },
     filename: function (req, file, cb) {
-        cb(null, req.params.name);
+        //cb(null, req.params.name+'.png');
+        cb(null,file.originalname);
     }
 })
 
 var upload = multer({ storage: storage }).any();
 
-app.post('/upload/:name', function (req, res) {
+app.post('/images', function (req, res) {
     //res.end(req.params.name);
-    //console.log(req.files[0])
 
     upload(req, res, function (err) {
         if (err) {
@@ -113,7 +79,6 @@ app.use(express.static('./public'));
 /*路由中间件：抓取错误*/
 
 app.use(function(req, res, next) {
-
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -121,7 +86,7 @@ app.use(function(req, res, next) {
 
 /*错误处理中间件*/
 app.use(function(err,req,res,next) {
-    res.status(500).send('404 Not Found');
+    res.status(500).send(err);
 });
 
 module.exports = app;

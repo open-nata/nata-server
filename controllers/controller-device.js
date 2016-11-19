@@ -12,3 +12,14 @@ module.exports.show = (req,res,next) =>{
         return res.json(devices);
     })
 }
+
+/*删除数据库所有的设备*/
+module.exports.removeAll = (req,res,next)=>{
+    DeviceModel.remove({},(err)=>{
+        console.log("Remove all projects")
+        if(err)
+            return next(err)
+        else
+            return res.status(200).send('removeAll success');
+    })
+}

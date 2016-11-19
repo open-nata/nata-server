@@ -7,7 +7,7 @@ const ProjectSchema = new mongoose.Schema({
     name:String,
     describe:String,
     manager:String,
-    filePath:String,
+    imageUrl:String,
     create_at:{type:Date,default:Date.now}
 })
 

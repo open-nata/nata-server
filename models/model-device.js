@@ -17,6 +17,8 @@ const DeviceSchema = new mongoose.Schema({
     resolution:String,
     cpu_abi:String,
     manufacturer:String,
+    tag:{type:String,default:"default"},
+    busy:Boolean,
     create_at:{type:Date,default:Date.now}
 },{id:false});
 
