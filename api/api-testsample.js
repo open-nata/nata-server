@@ -26,4 +26,22 @@ module.exports.create = (req,res,next)=>{
     })
 }
 
-/*更新*/
+/*更新一个测试用例：添加了config或者script的信息,具体的设备的信息关联的testcast*/
+module.exports.update = (req,res,next)=>{
+    console.log('更新测试用例')
+    console.log(req.body)
+
+    const project = req.body.project;
+    const version = req.body.version;
+    const name = req.body.name;
+
+    TestsampleModel.findOne({project:project,version:version,name:name}).exec((err,testsample)=> {
+        testsample.config = req.body.config;
+        testsample.script = req.body.script;
+
+        testsample.save((error)=> {
+            if (error) return next(err);
+            return res.status(200).json(testsample);
+        })
+    })
+}

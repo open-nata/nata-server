@@ -33,7 +33,7 @@ module.exports.update = (req,res,next)=>{
 
         project.save((error)=>{
             if(error) return next(err);
-            return res.status(200).send('save success');
+            return res.status(200).json(project);
         })
     })
 }
