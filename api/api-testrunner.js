@@ -156,8 +156,6 @@ module.exports.create = (req,res,next)=>{
 
 }
 
-
-
 /*获取运行过程中的数据*/
 module.exports.getData = (req,res,next)=>{
 
