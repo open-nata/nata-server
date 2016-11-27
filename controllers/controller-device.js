@@ -17,9 +17,7 @@ module.exports.show = (req,res,next) =>{
 module.exports.removeAll = (req,res,next)=>{
     DeviceModel.remove({},(err)=>{
         console.log("Remove all projects")
-        if(err)
-            return next(err)
-        else
-            return res.status(200).send('removeAll success');
+        if(err) return next(err)
+        return res.status(200).send('removeAll success');
     })
 }

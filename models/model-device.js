@@ -18,7 +18,7 @@ const DeviceSchema = new mongoose.Schema({
     cpu_abi:String,
     manufacturer:String,
     tag:{type:String,default:"default"},  //用以标记device的封面
-    state:{type:String,default:"free"},
+    state:{type:String,default:"free"},   //free,busy
     create_at:{type:Date,default:Date.now}
 },{id:false});
 
