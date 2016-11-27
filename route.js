@@ -12,6 +12,7 @@ const DeviceController = require('./controllers/controller-device');
 const ProjectController = require('./controllers/controller-project');
 const TestplanController = require('./controllers/controller-testplan');
 const TestsampleController = require('./controllers/controller-testsample');
+const TestrunnerController = require('./controllers/controller-testrunner');
 
 /*Ｈome Page*/
 router.get('/',(req,res)=>{
@@ -31,5 +32,9 @@ router.get('/:project/:version/testplan',TestplanController.show);
 router.delete('/testplan',TestplanController.removeAll);
 router.get('/:project/:version/:testplan/testsample',TestsampleController.show);
 router.delete('/testsample',TestsampleController.removeAll);
+
+/*运行列表*/
+router.get('/testrunners',TestrunnerController.show);
+router.delete('/testrunners',TestrunnerController.removeAll);
 
 module.exports = router;

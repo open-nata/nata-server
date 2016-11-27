@@ -21,6 +21,7 @@
     "multer": "^1.2.0",
     "nata-device": "^0.1.12",
     "nata-dfs": "^0.1.0",
+    "nata-monkey": "^1.0.3",
     "serve-favicon": "~2.3.0",
     "socket.io": "^1.4.5",
     "ws": "^1.1.0"

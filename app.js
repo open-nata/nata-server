@@ -80,12 +80,15 @@ app.use(express.static('./public'));
 
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
+    console.log('error handle1')
     err.status = 404;
     next(err);
 });
 
 /*错误处理中间件*/
 app.use(function(err,req,res,next) {
+    console.log('error handle2')
+    console.log(err)
     res.status(500).send(err);
 });
 
