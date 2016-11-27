@@ -4,7 +4,7 @@
 
 const TestplanModel = require('../models/model-testplan');
 
-/*获取数据库测试计划列表*/
+/*获取数据库测试计划列表:｛项目，版本｝*/
 module.exports.show = (req,res,next) =>{
 
     const project = req.params.project;

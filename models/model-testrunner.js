@@ -9,7 +9,7 @@ const TestrunnerSchema = new mongoose.Schema({
     testsample:String,
     tag:String,  //算法标签
     deviceId:String, //设备id
-    state:String, //此次运行的状态值
+    state:String, //此次运行的状态值：running,stop
     config:String,　　//配置：monkey，dfs等算法只需要一个配置命令即可
     script:String,　　//脚本:对于脚本的运行，表示脚本的具体内容
     resultMonkey:[String], //暂时用于monkey的运行结果

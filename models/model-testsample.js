@@ -11,7 +11,7 @@ const TestsampleSchema = new mongoose.Schema({
     name:String,
     describe:String,
     manager:String,
-    tag:String,
+    tag:String,  //算法
     config:String,
     script:String,
     create_at:{type:Date,default:Date.now}

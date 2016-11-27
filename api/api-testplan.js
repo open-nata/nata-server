@@ -18,8 +18,18 @@ module.exports.create = (req,res,next)=>{
     testplan.describe = req.body.describe;
     testplan.tag = req.body.tag;
 
-    testplan.save((err,data)=>{
-        if(err) return next(err);
-        return res.status(200).json(data);
+    /*查重：｛project,version,name｝*/
+    TestplanModel.findOne({project:testplan.project,version:testplan.version,name:testplan.name})
+        .exec((err,record)=>{
+        if(record) {
+            console.log("查重")
+            return res.status(500).send("Error")
+        }
+        else{
+            testplan.save((err,data)=>{
+                if(err) return next(err);
+                return res.status(200).json(data);
+            })
+        }
     })
 }

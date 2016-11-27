@@ -51,7 +51,7 @@ router.post('/testrunner/:id/save',testrunnerApi.save);
 
 router.get('/testrunner/:id',testrunnerApi.getData);
 router.get('/testrunners/:id',testrunnerApi.goDetail);
-router.post('/testrunners',testrunnerApi.showTestsample);
+router.post('/testrunners',testrunnerApi.showTestsample);  //关联一个测试用例的所有运行
 
 
 module.exports = router;

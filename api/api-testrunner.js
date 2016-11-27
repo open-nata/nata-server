@@ -3,13 +3,14 @@
  */
 
 const TestrunnerModel = require('../models/model-testrunner');
+const DeviceModel = require('../models/model-device');
 
 const Device = require('nata-device');
 const MonkeyRunner = require('nata-monkey');
 const _ = require('lodash');
 const path = require('path');
-const resultPath = path.join(__dirname,'../public/project');
 
+const resultPath = path.join(__dirname,'../public/project');
 
 /*For minicap: tracker devices*/
 const childProcess = require('child_process');
@@ -46,6 +47,7 @@ catch((err) => {
     console.log(err)
 })
 
+
 /*Monkey运行实例*/
 function startMonkey(command,device,testid){
     const deviceId = device;
@@ -73,13 +75,13 @@ function startMonkey(command,device,testid){
                 test.resultMonkey.push(data)
 
                 test.save((error)=>{
-                    console.log(error)
-                    console.log("更新数据")
+                    // console.log(error)
+                    // console.log("更新数据")
                 })
 
             })
 
-            console.log(data)
+            //console.log(data)
         })
     }
 
@@ -87,6 +89,28 @@ function startMonkey(command,device,testid){
         runner.on('close',(code)=>{
             console.log('closing code'+code)
 
+            /*改变设备状态以及测试运行的状态*/
+            DeviceModel.findOne({id:deviceId}).exec((err,record)=>{
+
+                console.log("运行结束，改变设备状态")
+                record.state = 'free';
+
+                record.save((error)=>{
+                    if(error)
+                        console.log("运行结束，改变设备状态失败")
+                })
+            })
+
+            TestrunnerModel.findOne({_id:testid}).exec((err,test)=>{
+
+                test.state = "stop";
+
+                test.save((error)=>{
+                    if(error)
+                        console.log("运行结束，改变运行状态失败")
+                })
+
+            })
 
         })
     }
@@ -97,6 +121,16 @@ module.exports.create = (req,res,next)=>{
 
     /*验证设备id:两方面的验证，一方面是设备状态的验证，
     另一方面是设备是否正在使用的验证；将设备的状态设置为busy*/
+    const deviceId = req.body.deviceId;
+    DeviceModel.findOne({id:deviceId}).exec((err,record)=>{
+
+        console.log("开始运行，改变设备状态")
+        record.state = 'busy';
+
+        record.save((error)=>{
+            if(error) return next(err);
+        })
+    })
 
     const testrunner = new TestrunnerModel();
 
@@ -170,11 +204,13 @@ module.exports.showTestsample = (req,res,next)=>{
     const project = req.body.project;
     const version = req.body.version;
     const testplan = req.body.testplan;
-    const testsample = req.body.testsample;
+    const testsample = req.body.name;
 
     TestrunnerModel.find({project:project,version:version,testplan:testplan,testsample:testsample},(err,data)=>{
         if(err) return next(err)
-        else return res.status(200).json(data)
+        console.log("测试用例＿测试运行")
+        console.log(data)
+        return res.status(200).json(data)
     })
 
 }
