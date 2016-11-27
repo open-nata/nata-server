@@ -29,9 +29,9 @@ router.delete('/projects',ProjectController.romoveAll);
 
 /*Testplan 与　Ｔestsample 列表*/
 router.get('/:project/:version/testplan',TestplanController.show);
-router.delete('/testplan',TestplanController.removeAll);
+router.delete('/testplans',TestplanController.removeAll);
 router.get('/:project/:version/:testplan/testsample',TestsampleController.show);
-router.delete('/testsample',TestsampleController.removeAll);
+router.delete('/testsamples',TestsampleController.removeAll);
 
 /*运行列表*/
 router.get('/testrunners',TestrunnerController.show);

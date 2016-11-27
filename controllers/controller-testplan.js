@@ -22,9 +22,7 @@ module.exports.show = (req,res,next) =>{
 module.exports.removeAll = (req,res,next)=>{
     TestplanModel.remove({},(err)=>{
         console.log("Remove all testplans")
-        if(err)
-            return next(err)
-        else
-            return res.status(200).send('removeAll success');
+        if(err) return next(err)
+        return res.status(200).send('removeAll success');
     })
 }

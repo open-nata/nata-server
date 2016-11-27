@@ -4,7 +4,11 @@ const mongoose = require('mongoose');
 
 //Project Schema
 const ProjectSchema = new mongoose.Schema({
-    name:String,
+    name:{
+        type:String,
+        unique:true, //自动查重
+        trim:true
+    },
     describe:String,
     manager:String,
     imageUrl:String,

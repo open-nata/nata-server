@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const DeviceSchema = new mongoose.Schema({
     id:{
         type:String,
-        unique:true,
+        unique:true,  //可以自动查重
         trim:true,
     },
     name:String,

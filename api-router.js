@@ -17,9 +17,12 @@ const testrunnerApi = require('./api/api-testrunner');
 /*创建一个项目*/
 router.post('/project',projectApi.create);
 /*删除一个项目*/
-router.delete('/project/:id',projectApi.delete);
+router.delete('/project/:name',projectApi.delete);
 /*更新一个项目*/
-router.put('/project/:id',projectApi.update);
+router.put('/project/:name',projectApi.update);
+/*获取一个项目详细信息*/
+router.get('/project/:name',projectApi.getDetail);
+
 
 //Api for device
 /*获取在线设备列表*/
