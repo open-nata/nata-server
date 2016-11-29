@@ -5,6 +5,7 @@
 const TestrunnerModel = require('../models/model-testrunner');
 const DeviceModel = require('../models/model-device');
 
+const Github = require('nata-git');
 const Device = require('nata-device');
 const MonkeyRunner = require('nata-monkey');
 const _ = require('lodash');
@@ -192,7 +193,30 @@ module.exports.delete = (req,res,next) =>{
 /*当完成之后，将一次运行的结果保存到github仓库*/
 module.exports.save = (req,res,next)=>{
 
-    return res.status(200);
+    const id = req.params.id;
+
+    TestrunnerModel.findOne({
+        _id:id
+    },(err,record)=>{
+        if(err|| !record){
+            return next(err)
+        }
+
+        /*将数据持久化到github*/
+        var resultMonkey = record.resultMonkey;
+        var result ="";
+        for(var i = 0; i<resultMonkey.length; i++){
+            result = result+resultMonkey[i]+"\n"
+        }
+        var path = `${record.project}/${record.version}/${record.testplan}/${record.testsample}/${record.create_at}.txt`;
+
+        var describe = "nothing";
+        
+        Github.gitCommit(path,result,describe);
+
+        return res.status(200).send("Success");
+    })
+
 }
 
 /*获取关联于一个测试用例的所有运行*/
