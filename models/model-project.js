@@ -2,11 +2,11 @@
 
 const mongoose = require('mongoose');
 
-//Project Schema
+// Project Schema
 const ProjectSchema = new mongoose.Schema({
     name:{
         type:String,
-        unique:true, //自动查重
+        unique:true, //当一个属性声明为unique时，会自动查重
         trim:true
     },
     describe:String,

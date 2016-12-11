@@ -1,16 +1,13 @@
-/**
- * Created by ghj on 16-11-1.
- */
 'use strict'
 
-/*创建project目录*/
+/*获取project目录,apk子目录*/
 var path = require('path');
 var fs = require('fs');
 const projectPath = path.join(__dirname,"../public/project");
 
-const ProjectModel = require('../models/model-project');
+const ApkModel = require('../models/model-apk');
 
-/*创建一个Project*/
+/*创建一个apk*/
 module.exports.create = (req,res,next)=>{
 
     const project = new ProjectModel();
